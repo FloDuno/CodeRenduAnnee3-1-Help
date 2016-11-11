@@ -18,14 +18,7 @@ public class ArchOpening : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (sColorManager._isEquivalent)
-        {
-            _archOpened = true;
-        }
-        else
-        {
-            _archOpened = false;
-        }
+        _archOpened = sColorManager._isEquivalent;
         if (_archOpened)
         {
             if (_archDoor.transform.position.y > _archDoorDown.transform.position.y)

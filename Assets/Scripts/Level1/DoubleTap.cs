@@ -10,7 +10,7 @@ public class DoubleTap : MonoBehaviour
     {
         if (Input.GetTouch(0).tapCount == 2)
         {
-            destination = transform.TransformDirection(transform.forward) * distance;
+            destination = (transform.position + transform.forward) * distance;
         }
         else
         {

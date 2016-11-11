@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
+//Useful to know what to check
 public enum Channels
 {
     R,
@@ -10,12 +11,16 @@ public enum Channels
 
 public class ColorCheck : MonoBehaviour
 {
+    //Channel to display for this cube
     public Channels channel;
+    //Count the right answers
     public static bool[] rightColor;
+    //Set the color to find
     public Color colorToDivide;
 
     void Start()
     {
+        //Divide every channel of the color and assign it to materials
         switch (channel)
         {
             case Channels.R:
@@ -30,11 +35,14 @@ public class ColorCheck : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException();
         }
+        //Make sure we have the right number of cubes to check
         rightColor = new bool[3];
     }
 
     void OnTriggerEnter(Collider _collider)
     {
+        //When the player drop cube on it, we check if the color's all right
+        //If so we destroy the player's cube and get a point
         switch (channel)
         {
             case Channels.R:
@@ -64,6 +72,7 @@ public class ColorCheck : MonoBehaviour
         }
     }
 
+    //Get a point by adding filling an array of booleans with one more "true"
     void AddRightColor()
     {
         for (int _i = 0; _i < rightColor.Length; _i++)

@@ -3,12 +3,13 @@
 public class ColorManager : MonoBehaviour
 {
     // Variables =======================================================================================
-    public bool _isEquivalent;
-    public float _tolerance;
-    public Material _refMaterial;
-    public Material _environmentMaterial;
-    Color _medianColor;
-    WebCamTexture _TextureFromWebcam;
+    public bool isEquivalent;
+    public float tolerance;
+    public Material refMaterial;
+    public Material environmentMaterial;
+
+    private Color _medianColor;
+    private WebCamTexture _TextureFromWebcam;
 
     // Start ===========================================================================================
     void Start()
@@ -24,33 +25,33 @@ public class ColorManager : MonoBehaviour
         SetColorOnAll();
 
         // Are Materials equivalent?
-        _isEquivalent = ColorEquivalence();
+        isEquivalent = ColorEquivalence();
     }
 
     // Color Equivalence ===============================================================================
     bool ColorEquivalence()
     {
-        return Mathf.Abs(_refMaterial.color.r - _medianColor.r) + Mathf.Abs(_refMaterial.color.g - _medianColor.g) + Mathf.Abs(_refMaterial.color.b - _medianColor.b) < _tolerance * 3;
+        return Mathf.Abs(refMaterial.color.r - _medianColor.r) + Mathf.Abs(refMaterial.color.g - _medianColor.g) + Mathf.Abs(refMaterial.color.b - _medianColor.b) < tolerance * 3;
     }
 
     // Get Median Color ===============================================================================
+    //Get the average color of the three channels for every pixel in the texture
     private Color GetMedianColor()
     {
-        Color MedianColor = new Color();
-        Vector3 SumOfAllColors = Vector3.zero;
-        Color[] AllColors = _TextureFromWebcam.GetPixels();
-        for (int i = 0; i < AllColors.Length; i++)
+        Vector3 _sumOfAllColors = Vector3.zero;
+        Color[] _allColors = _TextureFromWebcam.GetPixels();
+        for (int _i = 0; _i < _allColors.Length; _i++)
         {
-            SumOfAllColors += new Vector3(AllColors[i].r, AllColors[i].g, AllColors[i].b);
+            _sumOfAllColors += new Vector3(_allColors[_i].r, _allColors[_i].g, _allColors[_i].b);
         }
-        SumOfAllColors = SumOfAllColors / AllColors.Length;
-        MedianColor = new Color(SumOfAllColors.x, SumOfAllColors.y, SumOfAllColors.z);
-        return MedianColor;
+        _sumOfAllColors = _sumOfAllColors / _allColors.Length;
+        Color _medianColorTemp = new Color(_sumOfAllColors.x, _sumOfAllColors.y, _sumOfAllColors.z);
+        return _medianColorTemp;
     }
 
     // Set Color on all GO ============================================================================
     private void SetColorOnAll()
     {
-        _environmentMaterial.color = _medianColor;
+        environmentMaterial.color = _medianColor;
     }
 }

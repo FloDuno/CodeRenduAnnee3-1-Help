@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+//Make info disappear after 5 seconds
 public class DisappearText : MonoBehaviour {
 
 	// Use this for initialization

@@ -3,15 +3,16 @@
 public class DivideColor : MonoBehaviour {
 
     // Variables =======================================================================================
-    public Material _environmentMaterial;
-    Color _medianColor;
-    WebCamTexture _TextureFromWebcam;
+    public Material environmentMaterial;
+
+    private Color _medianColor;
+    private WebCamTexture _extureFromWebcam;
 
     // Start ===========================================================================================
     void Start()
     {
-        _TextureFromWebcam = new WebCamTexture();
-        _TextureFromWebcam.Play();
+        _extureFromWebcam = new WebCamTexture();
+        _extureFromWebcam.Play();
     }
 
     // Update ==========================================================================================
@@ -22,23 +23,23 @@ public class DivideColor : MonoBehaviour {
     }
 
     // Get Median Color ===============================================================================
+    //Make the average of all channels from every pixel in the screen
     private Color GetMedianColor()
     {
-        Color MedianColor = new Color();
-        Vector3 SumOfAllColors = Vector3.zero;
-        Color[] AllColors = _TextureFromWebcam.GetPixels();
-        for (int i = 0; i < AllColors.Length; i++)
+        Vector3 _sumOfAllColors = Vector3.zero;
+        Color[] _allColors = _extureFromWebcam.GetPixels();
+        for (int _i = 0; _i < _allColors.Length; _i++)
         {
-            SumOfAllColors += new Vector3(AllColors[i].r, AllColors[i].g, AllColors[i].b);
+            _sumOfAllColors += new Vector3(_allColors[_i].r, _allColors[_i].g, _allColors[_i].b);
         }
-        SumOfAllColors = SumOfAllColors / AllColors.Length;
-        MedianColor = new Color(SumOfAllColors.x, SumOfAllColors.y, SumOfAllColors.z);
-        return MedianColor;
+        _sumOfAllColors = _sumOfAllColors / _allColors.Length;
+        Color _medianColorTemp = new Color(_sumOfAllColors.x, _sumOfAllColors.y, _sumOfAllColors.z);
+        return _medianColorTemp;
     }
 
     // Set Color on all GO ============================================================================
     private void SetColorOnAll()
     {
-        _environmentMaterial.color = _medianColor;
+        environmentMaterial.color = _medianColor;
     }
 }

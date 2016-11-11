@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class DoubleTap : MonoBehaviour
 {
@@ -10,7 +9,7 @@ public class DoubleTap : MonoBehaviour
     {
         if (Input.GetTouch(0).tapCount == 2)
         {
-            destination = (transform.position + transform.forward) * distance;
+            destination = transform.forward * distance;
         }
         else
         {
